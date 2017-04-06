@@ -123,6 +123,46 @@ Milestone2/fast:
 	$(MAKE) -f CMakeFiles/Milestone2.dir/build.make CMakeFiles/Milestone2.dir/build
 .PHONY : Milestone2/fast
 
+#=============================================================================
+# Target rules for targets named HLIB
+
+# Build rule for target.
+HLIB: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 HLIB
+.PHONY : HLIB
+
+# fast build rule for target.
+HLIB/fast:
+	$(MAKE) -f CMakeFiles/HLIB.dir/build.make CMakeFiles/HLIB.dir/build
+.PHONY : HLIB/fast
+
+heap_storage.o: heap_storage.cpp.o
+
+.PHONY : heap_storage.o
+
+# target to build an object file
+heap_storage.cpp.o:
+	$(MAKE) -f CMakeFiles/HLIB.dir/build.make CMakeFiles/HLIB.dir/heap_storage.cpp.o
+.PHONY : heap_storage.cpp.o
+
+heap_storage.i: heap_storage.cpp.i
+
+.PHONY : heap_storage.i
+
+# target to preprocess a source file
+heap_storage.cpp.i:
+	$(MAKE) -f CMakeFiles/HLIB.dir/build.make CMakeFiles/HLIB.dir/heap_storage.cpp.i
+.PHONY : heap_storage.cpp.i
+
+heap_storage.s: heap_storage.cpp.s
+
+.PHONY : heap_storage.s
+
+# target to generate assembly for a file
+heap_storage.cpp.s:
+	$(MAKE) -f CMakeFiles/HLIB.dir/build.make CMakeFiles/HLIB.dir/heap_storage.cpp.s
+.PHONY : heap_storage.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -159,6 +199,10 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Milestone2"
+	@echo "... HLIB"
+	@echo "... heap_storage.o"
+	@echo "... heap_storage.i"
+	@echo "... heap_storage.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

@@ -90,6 +90,7 @@ Milestone2_EXTERNAL_OBJECTS =
 
 Milestone2: CMakeFiles/Milestone2.dir/main.cpp.o
 Milestone2: CMakeFiles/Milestone2.dir/build.make
+Milestone2: libHLIB.a
 Milestone2: CMakeFiles/Milestone2.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/stormregalia/Desktop/DBProject/Milestone2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Milestone2"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Milestone2.dir/link.txt --verbose=$(VERBOSE)
