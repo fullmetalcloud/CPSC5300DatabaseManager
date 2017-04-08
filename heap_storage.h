@@ -4,6 +4,8 @@
  *  Created on: Apr 4, 2017
  *      Author: klundeen
  */
+#ifndef HEAP_STORAGE_H
+#define HEAP_STORAGE_H
 #pragma once
 
 #include "db_cxx.h"
@@ -110,3 +112,4 @@ protected:
 };
 
 bool test_heap_storage();
+#endif

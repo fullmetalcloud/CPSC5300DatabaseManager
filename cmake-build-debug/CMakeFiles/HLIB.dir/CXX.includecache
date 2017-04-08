@@ -9,6 +9,8 @@
 /Users/stormregalia/Desktop/DBProject/Milestone2/heap_storage.cpp
 heap_storage.h
 /Users/stormregalia/Desktop/DBProject/Milestone2/heap_storage.h
+iostream
+-
 
 /Users/stormregalia/Desktop/DBProject/Milestone2/heap_storage.h
 db_cxx.h
@@ -24,6 +26,8 @@ map
 utility
 -
 vector
+-
+string
 -
 db_cxx.h
 /Users/stormregalia/Desktop/DBProject/Milestone2/db_cxx.h
