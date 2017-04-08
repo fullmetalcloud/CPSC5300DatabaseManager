@@ -277,7 +277,6 @@ main(int argc, char* argv[])
 {
     string query = "";
     cout<<endl<<"WELCOME TO SQL BY ED GUEVARA"<<endl<<endl;
-    cout<<"INIT DB ENV"<<endl;
     const char *home = std::getenv("HOME");
     std::string envdir = std::string(home) + "/" + HOME;
 
@@ -285,6 +284,7 @@ main(int argc, char* argv[])
     _DB_ENV->set_message_stream(&std::cout);
     _DB_ENV->set_error_stream(&std::cerr);
     _DB_ENV->open(envdir.c_str(), DB_CREATE | DB_INIT_MPOOL, 0);
+
     cout<<"TESTING HEAP STORAGE"<<endl;
     if(test_heap_storage())
         cout<<"SUCCESS!"<<endl;

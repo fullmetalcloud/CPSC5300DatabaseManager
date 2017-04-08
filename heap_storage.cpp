@@ -29,22 +29,22 @@ RecordID SlottedPage::add(const Dbt* data) throw(DbBlockNoRoomError){
         put_header();
         memcpy(address(end_free), data->get_data(), size);
     }
+
     return num_records;
 
 }
 Dbt* SlottedPage::get(RecordID record_id){
     //gets data of given record id
-    u_int16_t size, loc;
-    get_header(size, loc, record_id);
-    if(loc == 0)
+    u_int16_t size, location;
+    get_header(size, location, record_id);
+    if(location == 0)
         return nullptr;
-    return new Dbt(address(loc),size);
+    return new Dbt(address(location),size);
 
 }
 void SlottedPage::put(RecordID record_id, const Dbt &data) throw(DbBlockNoRoomError){
     //puts given data into the given record id, must check if new
     // data can fit and slide block data to adjust to new data
-    cout<<data.get_size()<<" "<<data.get_data()<<endl;
     u_int16_t size, location, newSize;
     newSize = (u_int16_t)data.get_size();
     get_header(size, location, record_id);
@@ -74,9 +74,12 @@ void SlottedPage::del(RecordID record_id){
 RecordIDs* SlottedPage::ids(void){
     //get all record ids in block
     RecordIDs* records = new RecordIDs;
-    for(unsigned int i = 1; i<num_records;i++)
+    u_int16_t size, location;
+    for(u_int16_t i = 1; i<=num_records;i++)
     {
-        records->push_back(get_n(i * 4));
+        get_header(size, location, i);
+        if(location!=0)
+            records->push_back(i);
     }
     return records;
 }
@@ -93,11 +96,10 @@ void SlottedPage::put_header(RecordID id, u_int16_t size, u_int16_t loc){
     }
     put_n(id*4, size);
     put_n(id*4 + 2, loc);
-    cout<<id<<": "<<size<<" "<<loc<<endl;
 }
 bool SlottedPage::has_room(u_int16_t size){
     //checks if there is space for new data
-    return end_free - (num_records + 1) * 4 >= size;
+    return (end_free - (num_records + 1) * 4 >= size);
 }
 void SlottedPage::slide(u_int16_t start, u_int16_t end){
     //slides data if changing data in record or deleting data in block
@@ -130,7 +132,7 @@ void SlottedPage::put_n(u_int16_t offset, u_int16_t n){
 }
 void* SlottedPage::address(u_int16_t offset){
     //retrieves data from block
-    return (void*)((char*)block.get_data()+ offset);
+    return (void*)((char*)block.get_data() + offset);
 }
 
 //HeapFile Implementation
@@ -142,7 +144,7 @@ void HeapFile::create() {
 void HeapFile::drop(){
     //drop/delete file
     Db db(_DB_ENV,0);
-    db.remove(dbfilename.c_str(),NULL,0);
+    db.remove(dbfilename.c_str(),nullptr,0);
 }
 void HeapFile::open(){
     //open file
@@ -155,22 +157,22 @@ void HeapFile::close(){
 }
 SlottedPage* HeapFile::get_new(){
     //make new block
-    BlockID id = ++last;
+    int id = ++last;
     Dbt key(&id,sizeof(id));
     char newBlock[DB_BLOCK_SZ];
     memset(newBlock,0,sizeof(newBlock));
     Dbt data(newBlock,sizeof(newBlock));
-    db.put(NULL, &key, &data, 0);
-    db.get(NULL, &key, &data, 0);
+    db.put(nullptr, &key, &data, 0);
+    db.get(nullptr, &key, &data, 0);
     SlottedPage* result = new SlottedPage(data,id,true);
-    db.put(NULL, &key, &data, 0);
+    db.put(nullptr, &key, &data, 0);
     return result;
 }
 SlottedPage* HeapFile::get(BlockID block_id){
     //get block of given block id
     Dbt data;
     Dbt key(&block_id,sizeof(block_id));
-    db.get(NULL, &key, &data, 0);
+    db.get(nullptr, &key, &data, 0);
     return new SlottedPage(data, block_id,false);
 }
 void HeapFile::put(DbBlock* block){
@@ -178,29 +180,29 @@ void HeapFile::put(DbBlock* block){
     //(id and data in parameter block)
     BlockID blockKey = block->get_block_id();
     Dbt key(&blockKey,sizeof(blockKey));
-    db.put(NULL, &key, block->get_block(), 0);
+    db.put(nullptr, &key, block->get_block(), 0);
 }
 BlockIDs* HeapFile::block_ids(){
     //return all block ids
     BlockIDs* ids = new BlockIDs();
-    for (u_int32_t i = 1; i<last;i++) {
+    for (u_int32_t i = 1; i<=last;i++) {
         ids->push_back(i);
     }
     return ids;
 }
 void HeapFile::db_open(uint flags){
     //open or create berkeley db file
+    DB_BTREE_STAT stat;
+    int val;
     if(!closed)
         return;
     db.set_re_len(DB_BLOCK_SZ);
     dbfilename = name + ".db";
-    db.open(nullptr, dbfilename.c_str(),nullptr,DB_RECNO, flags, 0644);
+    db.open(nullptr, dbfilename.c_str(), nullptr, DB_RECNO, flags, 0644);
     if(flags == 0){
-        DB_BTREE_STAT stat;
-        db.stat(NULL, &stat, DB_FAST_STAT);
+        db.stat(nullptr, &stat, DB_FAST_STAT);
         last = stat.bt_ndata;
-    } else {
-        last = 0;
+        cout<<stat.bt_ndata<<endl;
     }
     closed = false;
 }
@@ -262,7 +264,6 @@ Handles* HeapTable::select(const ValueDict* where){
     SlottedPage* block;
     RecordIDs* records;
     BlockIDs* blockIDs = file.block_ids();
-    cout<<blockIDs->size()<<endl;
     for(vector<BlockID>::iterator blockID = blockIDs->begin();
         blockID != blockIDs->end();
         blockID++) {
@@ -354,8 +355,7 @@ Dbt* HeapTable::marshal(const ValueDict* row) {
         if(columnType == ColumnAttribute::INT) {
             *(int32_t*)(tempBlock + dataSize) = value.n;
             dataSize += sizeof(int32_t);
-        }
-        else if(columnType == ColumnAttribute::TEXT) {
+        } else if(columnType == ColumnAttribute::TEXT) {
             size = (unsigned int) value.s.length();
             *(u_int16_t*)(tempBlock + dataSize) = (u_int16_t)size;
             dataSize+=sizeof(u_int16_t);
@@ -420,9 +420,9 @@ bool test_heap_storage(){
     value1[1].s = "Apples";
     value1[2].s = "Oranges";
     Value value2[3];
-    value2[0].n = 102;
+    value2[0].n = 53;
     value2[1].s = "Kappa";
-    value2[2].s = "Clappa";
+    value2[2].s = "Klappa";
     for(int i  = 0; i<3; ++i) {
         colNames.push_back(testColNames[i].c_str());
         colAttributes.push_back(testColAttributes[i]);
@@ -436,14 +436,33 @@ bool test_heap_storage(){
     cout<<"ATTEMPTING INSERT 1"<<endl;
     table.insert(insertTest1);
     cout<<"INSERT 1 SUCCESSFUL!"<<endl;
+    cout<<"ATTEMPTING SELECT 1"<<endl;
     handles = table.select();
-    cout<<"SELECT 1 SUCCESSFUL! "<< handles->size()<<endl;
-    cout<<"ATTEMPTING INSERT AND SELECT 2"<<endl;
+    cout<<"SELECT 1 SUCCESSFUL!"<<endl;
+    cout<<"NUMBER OF HANDLES: "<<handles->size()<<endl;
+    cout<<"ATTEMPTING INSERT 2 AND SELECT 2"<<endl;
     table.insert(insertTest2);
     handles = table.select();
-    cout<<"SELECT 2 SUCCESSFUL! "<<handles->size()<<endl;
-    //ValueDict* project = table.project();
-
+    cout<<"INSERT 2 AND SELECT 2 SUCCESSFUL! "<<endl;
+    cout<<"NUMBER OF HANDLES: "<<handles->size()<<endl;
+    cout<<"ATTEMPTING PROJECT"<<endl;
+    for(vector<Handle>::iterator handle = handles->begin();
+        handle!=handles->end();
+        handle++){
+        ValueDict* project = table.project(*handle);
+        for(int j = 0; j<3;j++) {
+            Value value = (*project)[colNames[j]];
+            if(value.data_type==ColumnAttribute::INT)
+                cout<<value.n<<" ";
+            else if(value.data_type==ColumnAttribute::TEXT)
+                cout<<value.s<<" ";
+        }
+        cout<<endl;
+    }
+    cout<<"PROJECT SUCCESSFUL!"<<endl;
+    cout<<"ATTEMPTING DROP"<<endl;
+    table.drop();
+    cout<<"DROP SUCCESSFUL"<<endl;
     delete insertTest1;
     delete insertTest2;
     return true;
