@@ -43,9 +43,9 @@ protected:
 	virtual void put_header(RecordID id=0, u_int16_t size=0, u_int16_t loc=0);
 	virtual bool has_room(u_int16_t size);
 	virtual void slide(u_int16_t start, u_int16_t end);
-	virtual u_int16_t get_n(u_int16_t offset);
+	virtual u_int16_t get_n(u_int16_t offset)const;
 	virtual void put_n(u_int16_t offset, u_int16_t n);
-	virtual void* address(u_int16_t offset);
+	virtual void* address(u_int16_t offset)const;
 };
 
 /**
@@ -110,6 +110,6 @@ protected:
 	virtual Dbt* marshal(const ValueDict* row);
 	virtual ValueDict* unmarshal(Dbt* data);
 };
-
+bool test_slotted_page();
 bool test_heap_storage();
 #endif

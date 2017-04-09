@@ -7,7 +7,6 @@ using namespace std;
 using namespace hsql;
 
 DbEnv* _DB_ENV;
-const char *HOME = "cpsc4300_5300/data";
 
 void PrintOpExpr(Expr* expr);
 void PrintSelectStatement(const SelectStatement* stmt);
@@ -275,23 +274,38 @@ void PrintStatement(const SQLStatement* stmt)
 int
 main(int argc, char* argv[])
 {
-    string query = "";
-    cout<<endl<<"WELCOME TO SQL BY ED GUEVARA"<<endl<<endl;
+    if(argc != 2){
+        cerr<<"SQL USE: (dbenv path)"<<endl;
+        return 1;
+    }
+    const char* envHome = argv[1];
     const char *home = std::getenv("HOME");
-    std::string envdir = std::string(home) + "/" + HOME;
-
+    string envDir = string(home)+"/"+string(envHome);
     _DB_ENV = new DbEnv(0U);
     _DB_ENV->set_message_stream(&std::cout);
     _DB_ENV->set_error_stream(&std::cerr);
-    _DB_ENV->open(envdir.c_str(), DB_CREATE | DB_INIT_MPOOL, 0);
+    try{
+        _DB_ENV->open(envDir.c_str(), DB_CREATE | DB_INIT_MPOOL, 0);
+    }catch(DbException& e){
+        cerr<<"(SQL Error: "<<e.what()<<")";
+        return 1;
+    }
+    string query = "";
+    cout<<"(running with database environment at "<<envDir<<")"<<endl;
+    cout<<"TESTING SLOTTED PAGE"<<endl;
+    if(test_slotted_page())
+        cout<<"SLOTTED PAGE SUCCESS!"<<endl;
+    else
+        cout<<"SLOTTED PAGE FAIL"<<endl;
+
 
     cout<<"TESTING HEAP STORAGE"<<endl;
     if(test_heap_storage())
-        cout<<"SUCCESS!"<<endl;
+        cout<<"HEAP STORAGE SUCCESS!"<<endl;
     else
-        cout<<"FAIL"<<endl;
+        cout<<"HEAP STORAGE FAIL"<<endl;
 
-    cout<<"(running with database environment at "<<HOME<<")"<<endl;
+    cout<< endl <<"SQL PARSER TEST"<<endl;
     cout<<"TYPE \"quit\" TO LEAVE!"<<endl;
     while(query != "quit")
     {
@@ -308,6 +322,6 @@ main(int argc, char* argv[])
             cout << "NOT VALID QUERY:  "<< query << endl;
         delete result;
     }
-    cout<<endl<<"GOODBYE"<<endl<<endl;
+    cout<<endl<<"GOODBYE"<<endl;
     return 0;
 }

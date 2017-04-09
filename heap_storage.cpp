@@ -25,11 +25,10 @@ RecordID SlottedPage::add(const Dbt* data) throw(DbBlockNoRoomError){
         ++num_records;
         u_int16_t size = (u_int16_t) data->get_size();
         end_free -= size;
-        put_header(num_records,size,end_free);
         put_header();
-        memcpy(address(end_free), data->get_data(), size);
+        put_header(num_records,size,end_free+1);
+        memcpy(address(end_free+1), data->get_data(), size);
     }
-
     return num_records;
 
 }
@@ -48,14 +47,12 @@ void SlottedPage::put(RecordID record_id, const Dbt &data) throw(DbBlockNoRoomEr
     u_int16_t size, location, newSize;
     newSize = (u_int16_t)data.get_size();
     get_header(size, location, record_id);
+    if(!has_room(newSize))
+        throw DbBlockNoRoomError("Not enough room!");
     //check if new data is larger than old data
     if(newSize > size) {
-        if(!has_room(newSize-size))
-            throw DbBlockNoRoomError("Not enough room!");
-        put_header();
-        put_header(record_id,newSize,location);
         slide(location,location-newSize-size);
-        memcpy(address(location), data.get_data(),newSize);
+        memcpy(address(location-newSize-size), data.get_data(),newSize);
     }
     else {
         memcpy(address(location),data.get_data(),newSize);
@@ -63,13 +60,15 @@ void SlottedPage::put(RecordID record_id, const Dbt &data) throw(DbBlockNoRoomEr
     }
     //update header of record id of new data and size
     get_header(size,location,record_id);
-    put_header(record_id,newSize,location+newSize-size);
+    put_header(record_id,newSize,location);
 }
 
 void SlottedPage::del(RecordID record_id){
     //delete data of given record id out of block
     u_int16_t size, location;
     get_header(size,location,record_id);
+    put_header(record_id, 0, 0);
+    slide(location, location+size);
 }
 RecordIDs* SlottedPage::ids(void){
     //get all record ids in block
@@ -104,25 +103,26 @@ bool SlottedPage::has_room(u_int16_t size){
 void SlottedPage::slide(u_int16_t start, u_int16_t end){
     //slides data if changing data in record or deleting data in block
     u_int16_t shiftSize = end - start;
+    u_int16_t size, location;
     if(shiftSize==0)
         return;
+    //shift all data before given start
     void* to = address(end_free + shiftSize + 1);
     void* from = address(end_free + 1);
-    char shiftData[start - end_free + 1];
-    memcpy(shiftData,from,shiftSize);
-    memcpy(to,shiftData,shiftSize);
+    char shiftData[start - (end_free+1)];
+    memcpy(shiftData, from, start - (end_free+1));
+    memcpy(to, shiftData, start - (end_free+1));
     RecordIDs* records = ids();
-    //shift all data before given start
-    for(unsigned int i = 0; records->size();i++) {
-        u_int16_t size, location;
-        get_header(size,location, (*records)[i]);
+    //adjust headers
+    for(RecordIDs::iterator i = records->begin();i!=records->end();i++) {
+        get_header(size,location, *i);
         if(location<=start)
-            put_header((*records)[i],size,location+shiftSize);
+            put_header(*i,size,location+shiftSize);
     }
     end_free+=shiftSize;
     put_header();
 }
-u_int16_t SlottedPage::get_n(u_int16_t offset){
+u_int16_t SlottedPage::get_n(u_int16_t offset) const {
     //gets data at the given offset
     return *(u_int16_t*) address(offset);
 }
@@ -130,10 +130,102 @@ void SlottedPage::put_n(u_int16_t offset, u_int16_t n){
     //puts data into given offset
     *(u_int16_t *)address(offset) = n;
 }
-void* SlottedPage::address(u_int16_t offset){
+void* SlottedPage::address(u_int16_t offset)const {
     //retrieves data from block
     return (void*)((char*)block.get_data() + offset);
 }
+bool test_slotted_page(){
+    char data[DB_BLOCK_SZ];
+    Dbt* check;
+    memset(data, 0, sizeof(data));
+    Dbt block(data, sizeof(data));
+    SlottedPage testPage(block, 1, true);
+    char word1[] = "Hello";
+    Dbt test1(word1, sizeof("Hello"));
+    RecordID id1 = testPage.add(&test1);
+    char word2[] = "Wow!";
+    Dbt test2(word2, sizeof("Wow!"));
+    RecordID id2 = testPage.add(&test2);
+    RecordIDs* ids = testPage.ids();
+    cout<<"   TESTING ADD"<<endl;
+    for(vector<RecordID>::iterator testID = ids->begin();
+        testID != ids->end();
+        testID++){
+        check = testPage.get(*testID);
+        string testWord = (char*)check->get_data();
+        cout<<testWord<<" ";
+        if(testWord.compare(word1)!=0 && testWord.compare(word2)!=0){
+            cout<<"   ADD FAILED"<<endl;
+            return false;
+        }
+    }
+    cout<<endl<<"   ADD SUCCESSFUL"<<endl;
+    cout<<"   TESTING PUT 1"<<endl;
+    char word3 []="Goodbye";
+    Dbt test3(word3, sizeof(word3));
+    testPage.put(id1, test3);
+    ids = testPage.ids();
+    for(RecordIDs::iterator testID = ids->begin();
+        testID != ids->end();
+        testID++){
+        check = testPage.get(*testID);
+        string testWord = (char*)check->get_data();
+        cout<<testWord<<" ";
+        if(testWord.compare(word3)!=0 && testWord.compare(word2)!=0){
+            cout<<"   PUT 1 FAILED"<<endl;
+            return false;
+        }
+    }
+    cout<<endl<<"   PUT 1 SUCCESSFUL"<<endl;
+    cout<<"   TESTING PUT 2"<<endl;
+    char word4 []="Hi";
+    Dbt test4(word4, sizeof(word4));
+    testPage.put(id2, test4);
+    for(RecordIDs::iterator testID = ids->begin();
+        testID != ids->end();
+        testID++){
+        check = testPage.get(*testID);
+        string testWord = (char*)check->get_data();
+        cout<<testWord<<" ";
+        if(testWord.compare(word3)!=0 && testWord.compare(word4)!=0){
+            cout<<"   PUT 2 FAILED"<<endl;
+            return false;
+        }
+    }
+    cout<<endl<<"   PUT 2 SUCCESSFUL"<<endl;
+    cout<<"   TESTING DELETE"<<endl;
+    testPage.del(id1);
+    ids = testPage.ids();
+    for(RecordIDs::iterator testID = ids->begin();
+        testID != ids->end();
+        testID++){
+        check = testPage.get(*testID);
+        string testWord = (char*)check->get_data();
+        cout<<testWord<<" ";
+        if(testWord.compare(word4)!=0){
+            cout<<endl<<"   DELETE FAILED"<<endl;
+            return false;
+        }
+    }
+    cout<<endl<<"   DELETE SUCCESSFUL"<<endl;
+    cout<<"   TESTING ADD 2"<<endl;
+    RecordID id3 = testPage.add(&test1);
+    ids = testPage.ids();
+    for(vector<RecordID>::iterator testID = ids->begin();
+        testID != ids->end();
+        testID++){
+        check = testPage.get(*testID);
+        string testWord = (char*)check->get_data();
+        cout<<testWord<<" ";
+        if(testWord.compare(word1)!=0 && testWord.compare(word4)!=0){
+            cout<<endl<<"   ADD 2 FAILED"<<endl;
+            return false;
+        }
+    }
+    cout<<endl<<"   ADD 2 SUCCESSFUL"<<endl;
+    return true;
+}
+
 
 //HeapFile Implementation
 void HeapFile::create() {
@@ -193,16 +285,14 @@ BlockIDs* HeapFile::block_ids(){
 void HeapFile::db_open(uint flags){
     //open or create berkeley db file
     DB_BTREE_STAT stat;
-    int val;
     if(!closed)
         return;
     db.set_re_len(DB_BLOCK_SZ);
     dbfilename = name + ".db";
     db.open(nullptr, dbfilename.c_str(), nullptr, DB_RECNO, flags, 0644);
     if(flags == 0){
-        db.stat(nullptr, &stat, DB_FAST_STAT);
+        db.stat(nullptr, &stat, 0);
         last = stat.bt_ndata;
-        cout<<stat.bt_ndata<<endl;
     }
     closed = false;
 }
@@ -264,7 +354,7 @@ Handles* HeapTable::select(const ValueDict* where){
     SlottedPage* block;
     RecordIDs* records;
     BlockIDs* blockIDs = file.block_ids();
-    for(vector<BlockID>::iterator blockID = blockIDs->begin();
+    for(BlockIDs::iterator blockID = blockIDs->begin();
         blockID != blockIDs->end();
         blockID++) {
         block = file.get(*blockID);
@@ -304,7 +394,7 @@ ValueDict* HeapTable::validate(const ValueDict* row) {
     ValueDict* result = new ValueDict();
     Value value;
     ValueDict::const_iterator rowInfo;
-    for (vector<Identifier>::const_iterator i = column_names.begin();
+    for (ColumnNames::const_iterator i = column_names.begin();
          i != column_names.end();
          i++) {
         rowInfo = row->find(*i);
@@ -345,7 +435,7 @@ Dbt* HeapTable::marshal(const ValueDict* row) {
     Value value;
     ValueDict::const_iterator rowInfo;
     ColumnAttribute::DataType columnType;
-    for(vector<Identifier>::iterator i = column_names.begin();
+    for(ColumnNames::iterator i = column_names.begin();
         i != column_names.end();
         i++, count++) {
         rowInfo = row->find(*i);
@@ -353,8 +443,8 @@ Dbt* HeapTable::marshal(const ValueDict* row) {
 
         columnType = column_attributes[count].get_data_type();
         if(columnType == ColumnAttribute::INT) {
-            *(int32_t*)(tempBlock + dataSize) = value.n;
-            dataSize += sizeof(int32_t);
+            *(u_int16_t*)(tempBlock + dataSize) = (u_int16_t) value.n;
+            dataSize += sizeof(u_int16_t);
         } else if(columnType == ColumnAttribute::TEXT) {
             size = (unsigned int) value.s.length();
             *(u_int16_t*)(tempBlock + dataSize) = (u_int16_t)size;
@@ -368,8 +458,8 @@ Dbt* HeapTable::marshal(const ValueDict* row) {
     char* data = new char[dataSize];
     memcpy(data, tempBlock, dataSize);
     Dbt* result = new Dbt(data,dataSize);
-    delete tempBlock;
-    delete data;
+    delete [] tempBlock;
+    delete [] data;
     return result;
 }
 ValueDict* HeapTable::unmarshal(Dbt* data){
@@ -379,13 +469,13 @@ ValueDict* HeapTable::unmarshal(Dbt* data){
     memcpy(block,data->get_data(),size);
     ValueDict* result = new ValueDict();
     Value value;
-    for(vector<Identifier>::iterator i = column_names.begin();
+    for(ColumnNames::iterator i = column_names.begin();
         i != column_names.end();
         i++, count++) {
         if(column_attributes[count].get_data_type() == ColumnAttribute::INT){
             value.data_type = ColumnAttribute::INT;
-            value.n = *(int32_t*) (block + offset);
-            offset+= sizeof(int32_t);
+            value.n = *(u_int16_t*) (block + offset);
+            offset+= sizeof(u_int16_t);
         }
         else if(column_attributes[count].get_data_type() == ColumnAttribute::TEXT){
             textSize = *(u_int16_t*)(block + offset);
@@ -403,9 +493,9 @@ ValueDict* HeapTable::unmarshal(Dbt* data){
     }
     return result;
 }
+
 bool test_heap_storage(){
     Dbt testData;
-    SlottedPage* testPage;
     string tableName = "TestTable";
     string testColNames [3]{"Number","Text1", "Text2"};
     ColumnAttribute testColAttributes [3] {ColumnAttribute::INT, ColumnAttribute::TEXT,
@@ -416,11 +506,11 @@ bool test_heap_storage(){
     ValueDict* insertTest2 = new ValueDict();
     Handles* handles;
     Value value1[3];
-    value1[0].n = 102;
+    value1[0].n = 1;
     value1[1].s = "Apples";
     value1[2].s = "Oranges";
     Value value2[3];
-    value2[0].n = 53;
+    value2[0].n = 5;
     value2[1].s = "Kappa";
     value2[2].s = "Klappa";
     for(int i  = 0; i<3; ++i) {
@@ -429,24 +519,28 @@ bool test_heap_storage(){
         (*insertTest1)[testColNames[i].c_str()] = value1[i];
         (*insertTest2)[testColNames[i].c_str()] = value2[i];
     }
-    cout<<"ATTEMPTING TABLE CREATION"<<endl;
+    cout<<"   ATTEMPTING TABLE CREATION"<<endl;
     HeapTable table(tableName,colNames, colAttributes);
     table.create_if_not_exists();
-    cout<<"TABLE CREATION SUCCESSFUL!"<<endl;
-    cout<<"ATTEMPTING INSERT 1"<<endl;
+    cout<<"   TABLE CREATION SUCCESSFUL!"<<endl;
+    cout<<"   ATTEMPTING DROP"<<endl;
+    table.drop();
+    cout<<"   DROP SUCCESSFUL"<<endl;
+    table.create_if_not_exists();
+    cout<<"   ATTEMPTING INSERT 1"<<endl;
     table.insert(insertTest1);
-    cout<<"INSERT 1 SUCCESSFUL!"<<endl;
-    cout<<"ATTEMPTING SELECT 1"<<endl;
+    cout<<"   INSERT 1 SUCCESSFUL!"<<endl;
+    cout<<"   ATTEMPTING SELECT 1"<<endl;
     handles = table.select();
-    cout<<"SELECT 1 SUCCESSFUL!"<<endl;
-    cout<<"NUMBER OF HANDLES: "<<handles->size()<<endl;
-    cout<<"ATTEMPTING INSERT 2 AND SELECT 2"<<endl;
+    cout<<"   SELECT 1 SUCCESSFUL!"<<endl;
+    cout<<"   NUMBER OF HANDLES: "<<handles->size()<<endl;
+    cout<<"   ATTEMPTING INSERT 2 AND SELECT 2"<<endl;
     table.insert(insertTest2);
     handles = table.select();
-    cout<<"INSERT 2 AND SELECT 2 SUCCESSFUL! "<<endl;
-    cout<<"NUMBER OF HANDLES: "<<handles->size()<<endl;
-    cout<<"ATTEMPTING PROJECT"<<endl;
-    for(vector<Handle>::iterator handle = handles->begin();
+    cout<<"   INSERT 2 AND SELECT 2 SUCCESSFUL! "<<endl;
+    cout<<"   NUMBER OF HANDLES: "<<handles->size()<<endl;
+    cout<<"   ATTEMPTING PROJECT"<<endl;
+    for(Handles::iterator handle = handles->begin();
         handle!=handles->end();
         handle++){
         ValueDict* project = table.project(*handle);
@@ -459,10 +553,8 @@ bool test_heap_storage(){
         }
         cout<<endl;
     }
-    cout<<"PROJECT SUCCESSFUL!"<<endl;
-    cout<<"ATTEMPTING DROP"<<endl;
-    table.drop();
-    cout<<"DROP SUCCESSFUL"<<endl;
+    cout<<"   PROJECT SUCCESSFUL!"<<endl;
+
     delete insertTest1;
     delete insertTest2;
     return true;
