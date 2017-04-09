@@ -9,12 +9,15 @@
  * For CPSC4300/5300 S17, Seattle University
  *
  */
+#ifndef STORAGE_ENGINE_H
+#define STORAGE_ENGINE_H
 #pragma once
 
 #include <exception>
 #include <map>
 #include <utility>
 #include <vector>
+#include <string>
 #include "db_cxx.h"
 
 extern DbEnv* _DB_ENV;
@@ -131,3 +134,4 @@ protected:
 	ColumnNames column_names;
 	ColumnAttributes column_attributes;
 };
+#endif
