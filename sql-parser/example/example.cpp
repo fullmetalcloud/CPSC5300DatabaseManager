@@ -1,9 +1,10 @@
 
 #include <stdlib.h>
 #include <string>
+#include <sys/types.h>
 
 // include the sql parser
-#include "src/SQLParser.h"
+#include "SQLParser.h"
 
 // contains printing utilities
 #include "sqlhelper.h"
@@ -23,7 +24,7 @@ int main(int argc, char *argv[]) {
         printf("Parsed successfully!\n");
         printf("Number of statements: %lu\n", result->size());
 
-        for (int i = 0; i < result->size(); ++i) {
+        for (uint i = 0; i < result->size(); ++i) {
             // Print a statement summary.
             hsql::printStatementInfo(result->getStatement(i));
         }

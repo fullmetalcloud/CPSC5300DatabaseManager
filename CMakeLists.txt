@@ -1,17 +1,21 @@
 cmake_minimum_required(VERSION 3.7)
-project(Milestone2)
+project(sql4300)
 
 set(CMAKE_CXX_STANDARD 11)
 
-include_directories("/usr/local/BerkeleyDB.6.2/include" )
-include_directories("${PROJECT_SOURCE_DIR}/sql-parser/src")
+set(SOURCE_FILES
+        heap_storage.cpp
+        heap_storage.h
+        sql4300.cpp
+        storage_engine.h ParseTreeToString.cpp ParseTreeToString.h SQLExec.cpp SQLExec.h schema_tables.h schema_tables.cpp storage_engine.cpp)
 
-set(SOURCE_FILES main.cpp)
-set(HEAP_FILES heap_storage.cpp)
-set(CFLAGS -Wall -DHAVE_CXX_STDHEADERS -D_GNU_SOURCE -D_REENTRANT -O3 -c)
+include_directories(/usr/local/db6/include)
+include_directories(~/sql-parser/src)
 
-add_library(HLIB ${HEAP_FILES})
+add_executable(sql4300 ${SOURCE_FILES})
 
-add_executable(Milestone2 ${SOURCE_FILES})
-target_link_libraries(Milestone2 HLIB "db_cxx" "SQLParser")
-add_definitions(${CFLAGS})
+find_library(BERKELEY_DB db_cxx HINTS "/usr/local/db6/lib")
+target_link_libraries(sql4300 ${BERKELEY_DB})
+
+find_library(SQL_PARSER SQLParser HINTS "~/sql-parser")
+target_link_libraries(sql4300 ${SQL_PARSER})
