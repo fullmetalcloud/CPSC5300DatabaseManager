@@ -10,7 +10,7 @@ set(SOURCE_FILES
         storage_engine.h ParseTreeToString.cpp ParseTreeToString.h SQLExec.cpp SQLExec.h schema_tables.h schema_tables.cpp storage_engine.cpp)
 
 include_directories(/usr/local/db6/include)
-include_directories(~/sql-parser/src)
+include_directories(${PROJECT_SOURCE_DIR}/sql-parser/src)
 
 add_executable(sql4300 ${SOURCE_FILES})
 

@@ -6,5 +6,5 @@ CXX_FLAGS = -g   -std=gnu++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/usr/local/db6/include -I/Users/stormregalia/sql-parser/src 
+CXX_INCLUDES = -I/usr/local/db6/include -I/Users/stormregalia/Desktop/DBProject/Project/sql-parser/src 
 
