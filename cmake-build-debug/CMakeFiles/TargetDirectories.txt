@@ -1,4 +1,3 @@
-/Users/stormregalia/Desktop/DBProject/Milestone2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/stormregalia/Desktop/DBProject/Milestone2/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/stormregalia/Desktop/DBProject/Milestone2/cmake-build-debug/CMakeFiles/Milestone2.dir
-/Users/stormregalia/Desktop/DBProject/Milestone2/cmake-build-debug/CMakeFiles/HLIB.dir
+/Users/stormregalia/Desktop/DBProject/Project/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/stormregalia/Desktop/DBProject/Project/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/stormregalia/Desktop/DBProject/Project/cmake-build-debug/CMakeFiles/sql4300.dir

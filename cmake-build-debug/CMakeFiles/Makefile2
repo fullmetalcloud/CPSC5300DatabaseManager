@@ -54,82 +54,45 @@ RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/stormregalia/Desktop/DBProject/Milestone2
+CMAKE_SOURCE_DIR = /Users/stormregalia/Desktop/DBProject/Project
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/stormregalia/Desktop/DBProject/Milestone2/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/stormregalia/Desktop/DBProject/Project/cmake-build-debug
 
 #=============================================================================
-# Target rules for target CMakeFiles/Milestone2.dir
+# Target rules for target CMakeFiles/sql4300.dir
 
 # All Build rule for target.
-CMakeFiles/Milestone2.dir/all: CMakeFiles/HLIB.dir/all
-	$(MAKE) -f CMakeFiles/Milestone2.dir/build.make CMakeFiles/Milestone2.dir/depend
-	$(MAKE) -f CMakeFiles/Milestone2.dir/build.make CMakeFiles/Milestone2.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/stormregalia/Desktop/DBProject/Milestone2/cmake-build-debug/CMakeFiles --progress-num=3,4 "Built target Milestone2"
-.PHONY : CMakeFiles/Milestone2.dir/all
+CMakeFiles/sql4300.dir/all:
+	$(MAKE) -f CMakeFiles/sql4300.dir/build.make CMakeFiles/sql4300.dir/depend
+	$(MAKE) -f CMakeFiles/sql4300.dir/build.make CMakeFiles/sql4300.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/stormregalia/Desktop/DBProject/Project/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target sql4300"
+.PHONY : CMakeFiles/sql4300.dir/all
 
 # Include target in all.
-all: CMakeFiles/Milestone2.dir/all
+all: CMakeFiles/sql4300.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/Milestone2.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/stormregalia/Desktop/DBProject/Milestone2/cmake-build-debug/CMakeFiles 4
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Milestone2.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/stormregalia/Desktop/DBProject/Milestone2/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/Milestone2.dir/rule
+CMakeFiles/sql4300.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/stormregalia/Desktop/DBProject/Project/cmake-build-debug/CMakeFiles 7
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/sql4300.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/stormregalia/Desktop/DBProject/Project/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/sql4300.dir/rule
 
 # Convenience name for target.
-Milestone2: CMakeFiles/Milestone2.dir/rule
+sql4300: CMakeFiles/sql4300.dir/rule
 
-.PHONY : Milestone2
-
-# clean rule for target.
-CMakeFiles/Milestone2.dir/clean:
-	$(MAKE) -f CMakeFiles/Milestone2.dir/build.make CMakeFiles/Milestone2.dir/clean
-.PHONY : CMakeFiles/Milestone2.dir/clean
+.PHONY : sql4300
 
 # clean rule for target.
-clean: CMakeFiles/Milestone2.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/HLIB.dir
-
-# All Build rule for target.
-CMakeFiles/HLIB.dir/all:
-	$(MAKE) -f CMakeFiles/HLIB.dir/build.make CMakeFiles/HLIB.dir/depend
-	$(MAKE) -f CMakeFiles/HLIB.dir/build.make CMakeFiles/HLIB.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/stormregalia/Desktop/DBProject/Milestone2/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target HLIB"
-.PHONY : CMakeFiles/HLIB.dir/all
-
-# Include target in all.
-all: CMakeFiles/HLIB.dir/all
-
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/HLIB.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/stormregalia/Desktop/DBProject/Milestone2/cmake-build-debug/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/HLIB.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/stormregalia/Desktop/DBProject/Milestone2/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/HLIB.dir/rule
-
-# Convenience name for target.
-HLIB: CMakeFiles/HLIB.dir/rule
-
-.PHONY : HLIB
+CMakeFiles/sql4300.dir/clean:
+	$(MAKE) -f CMakeFiles/sql4300.dir/build.make CMakeFiles/sql4300.dir/clean
+.PHONY : CMakeFiles/sql4300.dir/clean
 
 # clean rule for target.
-CMakeFiles/HLIB.dir/clean:
-	$(MAKE) -f CMakeFiles/HLIB.dir/build.make CMakeFiles/HLIB.dir/clean
-.PHONY : CMakeFiles/HLIB.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/HLIB.dir/clean
+clean: CMakeFiles/sql4300.dir/clean
 
 .PHONY : clean
 

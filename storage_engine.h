@@ -9,21 +9,18 @@
  * For CPSC4300/5300 S17, Seattle University
  *
  */
-#ifndef STORAGE_ENGINE_H
-#define STORAGE_ENGINE_H
 #pragma once
 
 #include <exception>
 #include <map>
 #include <utility>
 #include <vector>
-#include <string>
 #include "db_cxx.h"
 
 extern DbEnv* _DB_ENV;
 const uint DB_BLOCK_SZ = 4096;
-typedef u_int16_t RecordID;
-typedef u_int32_t BlockID;
+typedef uint16_t RecordID;
+typedef uint32_t BlockID;
 typedef std::vector<RecordID> RecordIDs;
 typedef std::length_error DbBlockNoRoomError;
 
@@ -32,12 +29,11 @@ public:
 	DbBlock(Dbt &block, BlockID block_id, bool is_new=false) : block(block), block_id(block_id) {}
 	virtual ~DbBlock() {}
 
-	virtual void initialize_new() {}
 	virtual RecordID add(const Dbt* data) throw(DbBlockNoRoomError) = 0;
-	virtual Dbt* get(RecordID record_id) = 0;
+	virtual Dbt* get(RecordID record_id) const = 0;
 	virtual void put(RecordID record_id, const Dbt &data) throw(DbBlockNoRoomError) = 0;
 	virtual void del(RecordID record_id) = 0;
-	virtual RecordIDs* ids() = 0;
+	virtual RecordIDs* ids() const = 0;
 
 	virtual Dbt* get_block() {return &block;}
 	virtual void* get_data() {return block.get_data();}
@@ -62,7 +58,7 @@ public:
 	virtual DbBlock* get_new() = 0;
 	virtual DbBlock* get(BlockID block_id) = 0;
 	virtual void put(DbBlock* block) = 0;
-	virtual BlockIDs* block_ids() = 0;
+	virtual BlockIDs* block_ids() const = 0;
 
 protected:
 	std::string name;
@@ -74,6 +70,7 @@ public:
 		INT,
 		TEXT
 	};
+    ColumnAttribute() : data_type(INT) {}
 	ColumnAttribute(DataType data_type) : data_type(data_type) {}
 	virtual ~ColumnAttribute() {}
 
@@ -93,6 +90,9 @@ public:
 	Value() : n(0) {data_type = ColumnAttribute::INT;}
 	Value(int32_t n) : n(n) {data_type = ColumnAttribute::INT;}
 	Value(std::string s) : s(s) {data_type = ColumnAttribute::TEXT; }
+
+	bool operator==(const Value &other) const;
+    bool operator!=(const Value &other) const;
 };
 
 typedef std::string Identifier;
@@ -101,6 +101,7 @@ typedef std::vector<ColumnAttribute> ColumnAttributes;
 typedef std::pair<BlockID, RecordID> Handle;
 typedef std::vector<Handle> Handles;  // FIXME: will need to turn this into an iterator at some point
 typedef std::map<Identifier, Value> ValueDict;
+typedef std::vector<ValueDict*> ValueDicts;
 
 class DbRelationError : public std::runtime_error {
 public:
@@ -128,10 +129,10 @@ public:
 	virtual Handles* select(const ValueDict* where) = 0;
 	virtual ValueDict* project(Handle handle) = 0;
 	virtual ValueDict* project(Handle handle, const ColumnNames* column_names) = 0;
+    virtual ValueDict* project(Handle handle, const ValueDict* column_names_from_dict);
 
 protected:
 	Identifier table_name;
 	ColumnNames column_names;
 	ColumnAttributes column_attributes;
 };
-#endif
