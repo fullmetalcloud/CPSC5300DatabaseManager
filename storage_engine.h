@@ -68,7 +68,8 @@ class ColumnAttribute {
 public:
 	enum DataType {
 		INT,
-		TEXT
+		TEXT,
+        BOOLEAN
 	};
     ColumnAttribute() : data_type(INT) {}
 	ColumnAttribute(DataType data_type) : data_type(data_type) {}
@@ -90,6 +91,8 @@ public:
 	Value() : n(0) {data_type = ColumnAttribute::INT;}
 	Value(int32_t n) : n(n) {data_type = ColumnAttribute::INT;}
 	Value(std::string s) : s(s) {data_type = ColumnAttribute::TEXT; }
+    Value(const char *s) : s(s) {data_type = ColumnAttribute::TEXT; }
+    Value(bool b) : n(b ? 1: 0) {data_type = ColumnAttribute::BOOLEAN; }
 
 	bool operator==(const Value &other) const;
     bool operator!=(const Value &other) const;
@@ -131,8 +134,40 @@ public:
 	virtual ValueDict* project(Handle handle, const ColumnNames* column_names) = 0;
     virtual ValueDict* project(Handle handle, const ValueDict* column_names_from_dict);
 
+    virtual const ColumnNames& get_column_names() const { return column_names; }
+    virtual const ColumnAttributes get_column_attributes() const { return column_attributes; }
+
 protected:
 	Identifier table_name;
 	ColumnNames column_names;
 	ColumnAttributes column_attributes;
+};
+
+class DbIndex {
+public:
+    static const uint MAX_COMPOSITE = 32U; // maximum number of columns in a composite index
+
+    DbIndex(DbRelation& relation, Identifier name, ColumnNames key_columns, bool unique)
+            : relation(relation), name(name), key_columns(key_columns), unique(unique) {}
+    virtual ~DbIndex() {}
+
+    virtual void create() = 0;
+    virtual void drop() = 0;
+
+    virtual void open() = 0;
+    virtual void close() = 0;
+
+    virtual Handles* lookup(ValueDict* key_values) const = 0;
+    virtual Handles* range(ValueDict* min_key, ValueDict* max_key) const {
+        throw DbRelationError("range index query not supported");
+    }
+
+    virtual void insert(Handle handle) = 0;
+    virtual void del(Handle handle) = 0;
+
+protected:
+    DbRelation& relation;
+    Identifier name;
+    ColumnNames key_columns;
+    bool unique;
 };

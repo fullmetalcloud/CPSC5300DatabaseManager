@@ -30,7 +30,8 @@ namespace hsql {
     enum CreateType {
       kTable,
       kTableFromTbl, // Hyrise file format
-      kView
+      kView,
+      kIndex
     };
 
     CreateStatement(CreateType type);
@@ -40,8 +41,11 @@ namespace hsql {
     bool ifNotExists; // default: false
     char* filePath; // default: NULL
     char* tableName; // default: NULL
+    char* indexName; // default: NULL
+    char* indexType; // default: NULL
     std::vector<ColumnDefinition*>* columns; // default: NULL
     std::vector<char*>* viewColumns;
+    std::vector<char*>* indexColumns;
     SelectStatement* select;
   };
 
