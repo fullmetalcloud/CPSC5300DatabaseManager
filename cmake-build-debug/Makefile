@@ -123,6 +123,33 @@ sql4300/fast:
 	$(MAKE) -f CMakeFiles/sql4300.dir/build.make CMakeFiles/sql4300.dir/build
 .PHONY : sql4300/fast
 
+EvalPlan.o: EvalPlan.cpp.o
+
+.PHONY : EvalPlan.o
+
+# target to build an object file
+EvalPlan.cpp.o:
+	$(MAKE) -f CMakeFiles/sql4300.dir/build.make CMakeFiles/sql4300.dir/EvalPlan.cpp.o
+.PHONY : EvalPlan.cpp.o
+
+EvalPlan.i: EvalPlan.cpp.i
+
+.PHONY : EvalPlan.i
+
+# target to preprocess a source file
+EvalPlan.cpp.i:
+	$(MAKE) -f CMakeFiles/sql4300.dir/build.make CMakeFiles/sql4300.dir/EvalPlan.cpp.i
+.PHONY : EvalPlan.cpp.i
+
+EvalPlan.s: EvalPlan.cpp.s
+
+.PHONY : EvalPlan.s
+
+# target to generate assembly for a file
+EvalPlan.cpp.s:
+	$(MAKE) -f CMakeFiles/sql4300.dir/build.make CMakeFiles/sql4300.dir/EvalPlan.cpp.s
+.PHONY : EvalPlan.cpp.s
+
 ParseTreeToString.o: ParseTreeToString.cpp.o
 
 .PHONY : ParseTreeToString.o
@@ -294,6 +321,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... sql4300"
+	@echo "... EvalPlan.o"
+	@echo "... EvalPlan.i"
+	@echo "... EvalPlan.s"
 	@echo "... ParseTreeToString.o"
 	@echo "... ParseTreeToString.i"
 	@echo "... ParseTreeToString.s"

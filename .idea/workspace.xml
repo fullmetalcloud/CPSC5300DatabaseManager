@@ -2,7 +2,7 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
     <generated>
-      <config projectName="Project" targetName="sql4300" />
+      <config projectName="sql4300" targetName="sql4300" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -12,10 +12,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf813718-6730-4112-a35f-83012c2fc4a0" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/GuevaraEdMilestone3.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/sql4300.cbp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dialog.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Screen Shot 2017-04-17 at 10.26.14 PM.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GuevaraEdMilestone4.zip" afterPath="$PROJECT_DIR$/GuevaraEdMilestone4.zip" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/ParseTreeToString.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/ParseTreeToString.cpp.o" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/SQLExec.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/SQLExec.cpp.o" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/heap_storage.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/heap_storage.cpp.o" />
@@ -24,27 +23,31 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/storage_engine.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/storage_engine.cpp.o" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/sql4300" afterPath="$PROJECT_DIR$/cmake-build-debug/sql4300" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql4300" afterPath="$PROJECT_DIR$/sql4300" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ParseTreeToString.cpp" afterPath="$PROJECT_DIR$/ParseTreeToString.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ParseTreeToString.h" afterPath="$PROJECT_DIR$/ParseTreeToString.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SQLExec.cpp" afterPath="$PROJECT_DIR$/SQLExec.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SQLExec.h" afterPath="$PROJECT_DIR$/SQLExec.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/CXX.includecache" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/CXX.includecache" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/DependInfo.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/DependInfo.cmake" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/build.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/build.make" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/cmake_clean.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/cmake_clean.cmake" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/depend.internal" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/depend.internal" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/depend.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/depend.make" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/link.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/link.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/progress.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sql4300.dir/progress.make" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/heap_storage.cpp" afterPath="$PROJECT_DIR$/heap_storage.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/heap_storage.h" afterPath="$PROJECT_DIR$/heap_storage.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/schema_tables.cpp" afterPath="$PROJECT_DIR$/schema_tables.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/schema_tables.h" afterPath="$PROJECT_DIR$/schema_tables.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql-parser/src/parser/bison_parser.cpp" afterPath="$PROJECT_DIR$/sql-parser/src/parser/bison_parser.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql-parser/src/parser/bison_parser.h" afterPath="$PROJECT_DIR$/sql-parser/src/parser/bison_parser.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql-parser/src/parser/bison_parser.y" afterPath="$PROJECT_DIR$/sql-parser/src/parser/bison_parser.y" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql-parser/src/parser/flex_lexer.cpp" afterPath="$PROJECT_DIR$/sql-parser/src/parser/flex_lexer.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql-parser/src/parser/flex_lexer.h" afterPath="$PROJECT_DIR$/sql-parser/src/parser/flex_lexer.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql-parser/src/parser/flex_lexer.l" afterPath="$PROJECT_DIR$/sql-parser/src/parser/flex_lexer.l" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql-parser/src/sql/CreateStatement.h" afterPath="$PROJECT_DIR$/sql-parser/src/sql/CreateStatement.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql-parser/src/sql/DropStatement.h" afterPath="$PROJECT_DIR$/sql-parser/src/sql/DropStatement.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql-parser/src/sql/statements.cpp" afterPath="$PROJECT_DIR$/sql-parser/src/sql/statements.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql-parser/src/sqlhelper.cpp" afterPath="$PROJECT_DIR$/sql-parser/src/sqlhelper.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage_engine.cpp" afterPath="$PROJECT_DIR$/storage_engine.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage_engine.h" afterPath="$PROJECT_DIR$/storage_engine.h" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -64,18 +67,30 @@
       <file leaf-file-name="SQLExec.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SQLExec.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2751">
-              <caret line="31" column="13" lean-forward="false" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+            <state relative-caret-position="276">
+              <caret line="92" column="0" lean-forward="true" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+              <folding>
+                <element signature="e#1#21#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="heap_storage.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/heap_storage.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2070">
+              <caret line="138" column="0" lean-forward="false" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShowStatement.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sql-parser/src/sql/ShowStatement.h">
+      <file leaf-file-name="DeleteStatement.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sql-parser/src/sql/DeleteStatement.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="10" lean-forward="false" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -84,8 +99,8 @@
       <file leaf-file-name="SQLExec.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SQLExec.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="7" lean-forward="false" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+            <state relative-caret-position="90">
+              <caret line="6" column="20" lean-forward="false" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -94,8 +109,8 @@
       <file leaf-file-name="schema_tables.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/schema_tables.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="562">
-              <caret line="371" column="2" lean-forward="false" selection-start-line="371" selection-start-column="2" selection-end-line="371" selection-end-column="2" />
+            <state relative-caret-position="5940">
+              <caret line="396" column="7" lean-forward="false" selection-start-line="396" selection-start-column="0" selection-end-line="396" selection-end-column="10" />
               <folding>
                 <element signature="e#1#27#0" expanded="true" />
               </folding>
@@ -106,8 +121,18 @@
       <file leaf-file-name="schema_tables.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/schema_tables.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
-              <caret line="51" column="14" lean-forward="false" selection-start-line="51" selection-start-column="8" selection-end-line="51" selection-end-column="19" />
+            <state relative-caret-position="810">
+              <caret line="54" column="7" lean-forward="false" selection-start-line="54" selection-start-column="7" selection-end-line="54" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EvalPlan.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/EvalPlan.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="61" column="32" lean-forward="false" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -116,8 +141,8 @@
       <file leaf-file-name="storage_engine.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/storage_engine.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1365">
-              <caret line="91" column="10" lean-forward="false" selection-start-line="91" selection-start-column="10" selection-end-line="91" selection-end-column="17" />
+            <state relative-caret-position="1515">
+              <caret line="101" column="32" lean-forward="false" selection-start-line="101" selection-start-column="32" selection-end-line="101" selection-end-column="32" />
               <folding>
                 <element signature="e#197#217#0" expanded="true" />
               </folding>
@@ -125,11 +150,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sql4300.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sql4300.cpp">
+      <file leaf-file-name="storage_engine.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/storage_engine.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+            <state relative-caret-position="480">
+              <caret line="32" column="12" lean-forward="false" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EvalPlan.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/EvalPlan.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -164,9 +199,11 @@
         <option value="$PROJECT_DIR$/heap_storage.cpp" />
         <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/sql4300.cpp" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/schema_tables.h" />
         <option value="$PROJECT_DIR$/schema_tables.cpp" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/EvalPlan.cpp" />
+        <option value="$PROJECT_DIR$/SQLExec.h" />
         <option value="$PROJECT_DIR$/SQLExec.cpp" />
       </list>
     </option>
@@ -180,8 +217,8 @@
   <component name="OCFindUsagesOptions" text="false" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="1277" />
-    <option name="height" value="712" />
+    <option name="width" value="1280" />
+    <option name="height" value="714" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -203,11 +240,43 @@
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Project" />
+              <option name="myItemId" value="sql4300" />
               <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sql4300" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sql-parser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sql4300" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sql-parser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -423,11 +492,11 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="Milestone2" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="$USER_HOME$/cpsc4300_5300/data" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="sql4300" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="sql4300">
+    <configuration default="false" name="Milestone2" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="$USER_HOME$/cpsc4300_5300/data" PASS_PARENT_ENVS_2="true" PROJECT_NAME="sql4300" TARGET_NAME="sql4300" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="sql4300" RUN_TARGET_NAME="sql4300">
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="sql4300" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="$PROJECT_DIR$/../cpsc4300_5300/data" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="sql4300" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="sql4300">
+    <configuration default="false" name="sql4300" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="$PROJECT_DIR$/../cpsc4300_5300/data" PASS_PARENT_ENVS_2="true" PROJECT_NAME="sql4300" TARGET_NAME="sql4300" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="sql4300" RUN_TARGET_NAME="sql4300">
       <envs />
       <method />
     </configuration>
@@ -466,28 +535,32 @@
       <workItem from="1492830643497" duration="667000" />
       <workItem from="1492832539634" duration="419000" />
       <workItem from="1492974859424" duration="544000" />
-      <workItem from="1492981185769" duration="126000" />
+      <workItem from="1492981185769" duration="514000" />
+      <workItem from="1493179287752" duration="1411000" />
+      <workItem from="1493269302407" duration="256000" />
+      <workItem from="1493269587819" duration="24787000" />
+      <workItem from="1493589162999" duration="1448000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="155715000" />
+    <option name="totallyTimeSpent" value="184005000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1277" height="712" extended-state="6" />
+    <frame x="0" y="23" width="1280" height="714" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18866397" sideWeight="0.49100256" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17932148" sideWeight="0.49100256" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33333334" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29354838" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3564516" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2695872" sideWeight="0.50899744" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3564516" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32871014" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32419354" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -516,66 +589,12 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="156" />
+      <option name="time" value="157" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/heap_storage.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage_engine.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding>
-            <element signature="e#197#217#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/heap_storage.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3585">
-          <caret line="239" column="0" lean-forward="false" selection-start-line="239" selection-start-column="0" selection-end-line="239" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/heap_storage.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage_engine.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding>
-            <element signature="e#197#217#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt" />
     <entry file="file://$PROJECT_DIR$/main.cpp" />
     <entry file="file://$PROJECT_DIR$/heap_storage.cpp">
       <provider selected="true" editor-type-id="text-editor">
@@ -591,13 +610,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="26" lean-forward="false" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt" />
     <entry file="file://$PROJECT_DIR$/main.cpp" />
     <entry file="file://$PROJECT_DIR$/sql-parser/src/sql/Expr.h" />
     <entry file="file://$PROJECT_DIR$/sql-parser/src/sql/Table.h" />
@@ -667,8 +680,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sql-parser/src/sql/Table.h" />
-    <entry file="file://$PROJECT_DIR$/sql-parser/src/sql/Expr.h" />
     <entry file="file:///usr/local/BerkeleyDB.6.2/include/db_cxx.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -688,13 +699,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/heap_storage.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-335">
-          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -754,21 +758,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="39" lean-forward="false" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sql4300.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sql-parser/src/sql/CreateStatement.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-82">
@@ -783,6 +772,63 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/heap_storage.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sql-parser/src/sql/ShowStatement.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="10" lean-forward="false" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sql4300.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="41" lean-forward="false" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sql-parser/src/sql/Expr.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sql-parser/src/sql/InsertStatement.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sql-parser/src/sql/Table.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="22" column="9" lean-forward="false" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sql-parser/src/sql/SelectStatement.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="840">
+          <caret line="58" column="24" lean-forward="true" selection-start-line="58" selection-start-column="24" selection-end-line="58" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file:///usr/local/include/db_cxx.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="123">
@@ -791,69 +837,97 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sql-parser/src/sql/ShowStatement.h">
+    <entry file="file://$PROJECT_DIR$/sql-parser/src/sql/Expr.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="10" lean-forward="false" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
+        <state relative-caret-position="-95">
+          <caret line="17" column="4" lean-forward="true" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/storage_engine.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/heap_storage.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1767">
-          <caret line="138" column="0" lean-forward="false" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SQLExec.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="7" lean-forward="false" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+        <state relative-caret-position="480">
+          <caret line="32" column="12" lean-forward="false" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/schema_tables.h">
+    <entry file="file://$PROJECT_DIR$/EvalPlan.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="51" column="14" lean-forward="false" selection-start-line="51" selection-start-column="8" selection-end-line="51" selection-end-column="19" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/storage_engine.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1365">
-          <caret line="91" column="10" lean-forward="false" selection-start-line="91" selection-start-column="10" selection-end-line="91" selection-end-column="17" />
+        <state relative-caret-position="1515">
+          <caret line="101" column="32" lean-forward="false" selection-start-line="101" selection-start-column="32" selection-end-line="101" selection-end-column="32" />
           <folding>
             <element signature="e#197#217#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/SQLExec.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="20" lean-forward="false" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sql-parser/src/sql/DeleteStatement.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/schema_tables.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="562">
-          <caret line="371" column="2" lean-forward="false" selection-start-line="371" selection-start-column="2" selection-end-line="371" selection-end-column="2" />
+        <state relative-caret-position="5940">
+          <caret line="396" column="7" lean-forward="false" selection-start-line="396" selection-start-column="0" selection-end-line="396" selection-end-column="10" />
           <folding>
             <element signature="e#1#27#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/schema_tables.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="54" column="7" lean-forward="false" selection-start-line="54" selection-start-column="7" selection-end-line="54" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/heap_storage.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2070">
+          <caret line="138" column="0" lean-forward="false" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EvalPlan.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="61" column="32" lean-forward="false" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/SQLExec.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2751">
-          <caret line="31" column="13" lean-forward="false" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
-          <folding />
+        <state relative-caret-position="276">
+          <caret line="92" column="0" lean-forward="true" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+          <folding>
+            <element signature="e#1#21#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

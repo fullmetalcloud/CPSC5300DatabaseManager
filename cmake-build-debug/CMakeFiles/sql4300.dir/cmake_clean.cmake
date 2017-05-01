@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/sql4300.dir/SQLExec.cpp.o"
   "CMakeFiles/sql4300.dir/schema_tables.cpp.o"
   "CMakeFiles/sql4300.dir/storage_engine.cpp.o"
+  "CMakeFiles/sql4300.dir/EvalPlan.cpp.o"
   "sql4300.pdb"
   "sql4300"
 )

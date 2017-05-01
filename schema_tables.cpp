@@ -400,13 +400,11 @@ IndexNames Indices::get_index_names(Identifier table_name) {
     where["table_name"] = Value(table_name);
     where["seq_in_index"] = Value(1);  // only get the row for the first column if composite index
     Handles* handles = select(&where);
-
     for (auto const& handle: *handles) {
         ValueDict* row = project(handle);
         ret.push_back((*row)["index_name"].s);
         delete row;
     }
-
     delete handles;
     return ret;
 }

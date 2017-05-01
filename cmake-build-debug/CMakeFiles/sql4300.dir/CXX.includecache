@@ -112,6 +112,14 @@ ExecuteStatement.h
 ShowStatement.h
 ../sql-parser/src/sql/ShowStatement.h
 
+/Users/stormregalia/Desktop/DBProject/Project/EvalPlan.cpp
+EvalPlan.h
+/Users/stormregalia/Desktop/DBProject/Project/EvalPlan.h
+
+/Users/stormregalia/Desktop/DBProject/Project/EvalPlan.h
+storage_engine.h
+/Users/stormregalia/Desktop/DBProject/Project/storage_engine.h
+
 /Users/stormregalia/Desktop/DBProject/Project/ParseTreeToString.cpp
 ParseTreeToString.h
 /Users/stormregalia/Desktop/DBProject/Project/ParseTreeToString.h
@@ -125,6 +133,8 @@ SQLParser.h
 /Users/stormregalia/Desktop/DBProject/Project/SQLParser.h
 
 /Users/stormregalia/Desktop/DBProject/Project/SQLExec.cpp
+algorithm
+-
 SQLExec.h
 /Users/stormregalia/Desktop/DBProject/Project/SQLExec.h
 
@@ -137,6 +147,8 @@ SQLParser.h
 /Users/stormregalia/Desktop/DBProject/Project/SQLParser.h
 schema_tables.h
 /Users/stormregalia/Desktop/DBProject/Project/schema_tables.h
+EvalPlan.h
+/Users/stormregalia/Desktop/DBProject/Project/EvalPlan.h
 
 /Users/stormregalia/Desktop/DBProject/Project/heap_storage.cpp
 stdio.h
@@ -183,6 +195,8 @@ SQLExec.h
 /Users/stormregalia/Desktop/DBProject/Project/SQLExec.h
 
 /Users/stormregalia/Desktop/DBProject/Project/storage_engine.cpp
+algorithm
+-
 storage_engine.h
 /Users/stormregalia/Desktop/DBProject/Project/storage_engine.h
 

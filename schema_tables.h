@@ -28,7 +28,6 @@ public:
     virtual Handle insert(const ValueDict* row);
     virtual void del(Handle handle);
 
-
 private:
     static std::map<Identifier,DbRelation*> table_cache;
 };
@@ -48,6 +47,7 @@ public:
     virtual void create();
     virtual Handle insert(const ValueDict* row);
 };
+
 
 typedef ColumnNames IndexNames;
 
