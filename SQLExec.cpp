@@ -1,6 +1,7 @@
 
 #include <algorithm>
 #include "SQLExec.h"
+#include "EvalPlan.h"
 
 Tables* SQLExec::tables = nullptr;
 Indices* SQLExec::indices = nullptr;
@@ -10,7 +11,7 @@ std::ostream &operator<<(std::ostream &out, const QueryResult &qres) {
         for (auto const &column_name: *qres.column_names)
             out << column_name << " ";
         out << std::endl << "+";
-        for (int i = 0; i < qres.column_names->size(); i++)
+        for (uint i = 0; i < qres.column_names->size(); i++)
             out << "----------+";
         out << std::endl;
         for (auto const &row: *qres.rows) {
@@ -80,138 +81,173 @@ QueryResult *SQLExec::execute(const hsql::SQLStatement *statement) throw(SQLExec
     }
 }
 
-Value get_expr_value(hsql::Expr* expr) {
-    if(expr == nullptr)
-        return nullptr;
-    if(expr->type == hsql::kExprLiteralString)
-        return Value(expr->name);
-    else if(expr->type == hsql::kExprLiteralInt)
-        return Value((int32_t) expr->ival);
-    else
-        return nullptr;
-}
-
-ValueDict* get_where_conjunction(hsql::Expr* expr)
-{
-    ValueDict* result = new ValueDict;
-    //recurse through AND and merge results into one map
-    if(expr->opType == hsql::Expr::AND) {
-
-        ValueDict recursiveResult1, recursiveResult2;
-        recursiveResult1 = *get_where_conjunction(expr->expr);
-        recursiveResult2 = *get_where_conjunction(expr->expr2);
-        result->insert(recursiveResult1.begin(),recursiveResult1.end());
-        result->insert(recursiveResult2.begin(),recursiveResult2.end());
-    }
-        //extract evaluation into map and return
-    else {
-        Identifier col;
-        if(expr->opType != hsql::Expr::SIMPLE_OP && expr->opChar != '=')
-            return nullptr;
-        col = expr->expr->name;
-        (*result)[col] = get_expr_value(expr->expr2);
-    }
-    return result;
-}
-
+// SQL: INSERT ...
 QueryResult *SQLExec::insert(const hsql::InsertStatement *statement) {
-    Identifier tableName = statement->tableName;
+    Identifier table_name = statement->tableName;
+    DbRelation& table = SQLExec::tables->get_table(table_name);
 
-    //extract values from statement and create insert row
-    DbRelation& rel = tables->get_table(tableName);
-    ColumnNames colNames;
-    ColumnAttributes colAttributes;
-    std::vector<char*>* stmtCols = statement->columns;
-    std::vector<hsql::Expr*> values = *statement->values;
-    ValueDict* insertRow = new ValueDict();
-    unsigned int count = 0;
-    Handle handle;
-    if(stmtCols == nullptr)
-        tables->get_columns(tableName,colNames, colAttributes);
-    else{
-        for(auto const& stmtCol : *stmtCols) {
-            std::string col = stmtCol;
-            colNames.push_back(col);
+    // get the column names in the order expected in the VALUES clause
+    ColumnNames *column_names;
+    if (statement->columns == nullptr) {
+        column_names = new ColumnNames(table.get_column_names());
+    } else {
+        column_names = new ColumnNames();
+        for(auto const& column_name: *statement->columns)
+            column_names->push_back(Identifier(column_name));
+    }
+
+    // construct the row we want to insert
+    ValueDict row;
+    uint i = 0;
+    for (auto const& value_expr: *statement->values) {
+        Identifier col_name = (*column_names)[i++];
+        if (value_expr->type == hsql::kExprLiteralInt)
+            row[col_name] = Value((int32_t)value_expr->ival);
+        else if (value_expr->type == hsql::kExprLiteralString)
+            row[col_name] = Value(value_expr->name);
+        else {
+            delete column_names;
+            throw SQLExecError("only really simple insert statements are supported");
         }
     }
-    for(auto const& col : colNames)
-        (*insertRow)[col] = get_expr_value(values.at(count++));
-    handle = rel.insert(insertRow);
+    delete column_names;
 
-    //Insert new info into any indices related to the table
-    IndexNames indexList = indices->get_index_names(tableName);
-    for(auto const& indexName : indexList){
-        DbIndex& index = indices->get_index(tableName,indexName);
-        index.insert(handle);
+    Handle t_insert = table.insert(&row);
+
+    // insert into indices
+    auto index_names = SQLExec::indices->get_index_names(table_name);
+    for (auto const& index_name: index_names) {
+        DbIndex& index = SQLExec::indices->get_index(table_name, index_name);
+        index.insert(t_insert);
     }
-    return new QueryResult("Successfully inserted 1 row into " + tableName + " and "
-                           + std::to_string(indexList.size()) + " indices");  // FIXME
+
+    std::string comment = "successfully inserted 1 row into " + table_name;
+    if (index_names.size() > 0)
+        comment += std::string(" and ") + std::to_string(index_names.size()) + " indices";
+    return new QueryResult(comment);
 }
 
+// recursive helper to pick up all the leaf equality conditions
+void get_where_conjunction(const hsql::Expr *expr, ValueDict *conjunction) {
+    if (expr->type == hsql::kExprOperator) {
+
+        // base case: column = literal
+        if (expr->opType == hsql::Expr::SIMPLE_OP
+                && expr->opChar == '='
+                && expr->expr->type == hsql::kExprColumnRef) {
+
+            if (expr->expr2->type == hsql::kExprLiteralInt) {
+                (*conjunction)[expr->expr->name] = Value((int32_t)expr->expr2->ival);
+                return;
+            }
+            if (expr->expr2->type == hsql::kExprLiteralString) {
+                (*conjunction)[expr->expr->name] = Value(expr->expr2->name);
+                return;
+            }
+        }
+
+        // recurse on AND operands
+        if (expr->opType == hsql::Expr::AND) {
+            get_where_conjunction(expr->expr, conjunction);
+            get_where_conjunction(expr->expr2, conjunction);
+            return;
+        }
+    }
+    throw SQLExecError("we only know how to do WHERE clauses with =/AND so far");
+}
+
+// Get a ValueDict of any AND conjuctions where bottom level has to be EQUALITY expressions
+ValueDict *get_where_conjunction(const hsql::Expr *where_clause) {
+    ValueDict *where = new ValueDict();
+    get_where_conjunction(where_clause, where);
+    return where;
+}
+
+// Get the column names from the SELECT
+ColumnNames *get_select_column_names(const std::vector<hsql::Expr*>* list) {
+    ColumnNames *column_names = new ColumnNames();
+    for (auto const& expr: *list) {
+        if (expr->type == hsql::kExprColumnRef) {
+            column_names->push_back(Identifier(expr->name));
+        } else {
+            delete column_names;
+            throw SQLExecError("only support * or explicit column names in SELECT");
+        }
+    }
+    return column_names;
+}
+
+// SQL: SELECT...
+QueryResult *SQLExec::select(const hsql::SelectStatement *statement) {
+    Identifier table_name = statement->fromTable->getName();
+    DbRelation& table = SQLExec::tables->get_table(table_name);
+
+    // start base of plan at a TableScan
+    EvalPlan *plan = new EvalPlan(table);
+
+    // enclose that in a Select if we have a where clause
+    if (statement->whereClause != nullptr)
+        plan = new EvalPlan(get_where_conjunction(statement->whereClause), plan);
+
+    // now wrap the whole thing in a ProjectAll or a Project
+    ColumnNames *column_names;
+    ColumnAttributes *column_attributes;
+    if (statement->selectList->at(0)->type == hsql::kExprStar) {
+        column_names = new ColumnNames(table.get_column_names());
+        column_attributes = new ColumnAttributes(table.get_column_attributes());
+        plan = new EvalPlan(EvalPlan::ProjectAll, plan);
+    } else {
+        column_names = get_select_column_names(statement->selectList);
+        column_attributes = table.get_column_attributes(*column_names);
+        plan = new EvalPlan(new ColumnNames(*column_names), plan);
+    }
+
+    // optimize the plan and evaluate the optimized plan
+    EvalPlan *optimized = plan->optimize();
+    ValueDicts *rows = optimized->evaluate();
+    delete plan;
+    delete optimized;
+
+    return new QueryResult(column_names, column_attributes, rows,
+                           "successfully returned " + std::to_string(rows->size()) + " rows");
+}
+
+// SQL: DELETE ...
 QueryResult *SQLExec::del(const hsql::DeleteStatement *statement) {
-    Identifier tableName = statement->tableName;
-    ColumnNames colNames;
-    ColumnAttributes colAttributes;
-    DbRelation& table = tables->get_table(tableName);
-    tables->get_columns(tableName,colNames,colAttributes);
+    Identifier table_name = statement->tableName;
+    DbRelation& table = SQLExec::tables->get_table(table_name);
 
-    //setup base plan as Tablescan
-    EvalPlan* plan = new EvalPlan(table);
-    if(statement->expr != nullptr)
-        plan = new EvalPlan(get_where_conjunction(statement->expr),plan);
+    // start base of plan at a TableScan
+    EvalPlan *plan = new EvalPlan(table);
 
-    //optimize the plan and pipeline the optimized plan
-    EvalPlan *optimized = plan ->optimize();
+    // enclose that in a Select if we have a where clause
+    if (statement->expr != nullptr)
+        plan = new EvalPlan(get_where_conjunction(statement->expr), plan);
+
+    // optimize the plan and evaluate the optimized plan
+    EvalPlan *optimized = plan->optimize();
     EvalPipeline pipeline = optimized->pipeline();
 
-    //delete out of indices and table
-    IndexNames indexList = indices->get_index_names(tableName);
-    Handles* handles = pipeline.second;
-    for(auto const& handle: *handles) {
-        for(auto const& indexName : indexList){
-            DbIndex& index = indices->get_index(tableName,indexName);
+    // now delete all the handles
+    auto index_names = SQLExec::indices->get_index_names(table_name);
+    Handles *handles = pipeline.second;
+    for (auto const& handle: *handles) {
+        // delete from index before deleting from table
+        for (auto const& index_name: index_names){
+            DbIndex& index = SQLExec::indices->get_index(table_name, index_name);
             index.del(handle);
         }
         table.del(handle);
     }
+    u_long n = handles->size();
+    delete handles;
+    delete plan;
+    delete optimized;
 
-    return new QueryResult("Successfully deleted " + std::to_string(handles->size())
-        + " rows from " + tableName + " and " + std::to_string(indexList.size()) + " indices");  // FIXME
-}
-
-QueryResult *SQLExec::select(const hsql::SelectStatement *statement) {
-    std::string tableName = statement->fromTable->name;
-    DbRelation& table = tables->get_table(tableName);
-    ColumnNames* colNames = new ColumnNames;
-    ColumnAttributes* columnAttributes = new ColumnAttributes;
-
-    //start base of plan at a TableScan
-    EvalPlan* plan = new EvalPlan(table);
-
-    //enclose that in a Select if we have a where clause
-    if(statement->whereClause != nullptr)
-        plan = new EvalPlan(get_where_conjunction(statement->whereClause),plan);
-
-    //now wrap the whole thing in a ProjectAll or a Project
-    if(statement->selectList->at(0)->type == hsql::kExprStar) {
-        //ProjectAll (Select * from table...)
-        tables->get_columns(tableName, *colNames, *columnAttributes);
-    }
-    else {
-        //Project (Select a, b, c from table...)
-        for(auto const& selectCol : *statement->selectList){
-            colNames->push_back(selectCol->name);
-        }
-        columnAttributes = table.get_column_attributes(*colNames);
-    }
-    plan = new EvalPlan(colNames,plan);
-
-    //optimize the plan and evaluate the optimized plan
-    EvalPlan *optimized = plan ->optimize();
-    ValueDicts* rows = optimized->evaluate();
-
-    return new QueryResult(colNames, columnAttributes, rows, "successfully returned "
-                                + std::to_string(rows->size()) + " rows");  // FIXME
+    std::string comment = "successfully deleted " + std::to_string(n) + " rows from " + table_name;
+    if (index_names.size() > 0)
+        comment += std::string(" and ") + std::to_string(index_names.size()) + " indices";
+    return new QueryResult(comment);
 }
 
 void SQLExec::column_definition(const hsql::ColumnDefinition *col, Identifier& column_name,

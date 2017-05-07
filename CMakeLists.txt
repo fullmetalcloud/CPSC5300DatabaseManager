@@ -16,7 +16,11 @@ set(SOURCE_FILES
         schema_tables.cpp
         storage_engine.cpp
         EvalPlan.cpp
-        EvalPlan.h)
+        EvalPlan.h
+        BTreeNode.h
+        BTreeNode.cpp
+        btree.h
+        btree.cpp)
 
 include_directories(/usr/local/db6/include)
 include_directories(${PROJECT_SOURCE_DIR}/sql-parser/src)

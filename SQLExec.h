@@ -4,7 +4,7 @@
 #include <string>
 #include "SQLParser.h"
 #include "schema_tables.h"
-#include "EvalPlan.h"
+
 
 class SQLExecError : public std::runtime_error {
 public:

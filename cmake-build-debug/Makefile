@@ -123,6 +123,33 @@ sql4300/fast:
 	$(MAKE) -f CMakeFiles/sql4300.dir/build.make CMakeFiles/sql4300.dir/build
 .PHONY : sql4300/fast
 
+BTreeNode.o: BTreeNode.cpp.o
+
+.PHONY : BTreeNode.o
+
+# target to build an object file
+BTreeNode.cpp.o:
+	$(MAKE) -f CMakeFiles/sql4300.dir/build.make CMakeFiles/sql4300.dir/BTreeNode.cpp.o
+.PHONY : BTreeNode.cpp.o
+
+BTreeNode.i: BTreeNode.cpp.i
+
+.PHONY : BTreeNode.i
+
+# target to preprocess a source file
+BTreeNode.cpp.i:
+	$(MAKE) -f CMakeFiles/sql4300.dir/build.make CMakeFiles/sql4300.dir/BTreeNode.cpp.i
+.PHONY : BTreeNode.cpp.i
+
+BTreeNode.s: BTreeNode.cpp.s
+
+.PHONY : BTreeNode.s
+
+# target to generate assembly for a file
+BTreeNode.cpp.s:
+	$(MAKE) -f CMakeFiles/sql4300.dir/build.make CMakeFiles/sql4300.dir/BTreeNode.cpp.s
+.PHONY : BTreeNode.cpp.s
+
 EvalPlan.o: EvalPlan.cpp.o
 
 .PHONY : EvalPlan.o
@@ -203,6 +230,33 @@ SQLExec.s: SQLExec.cpp.s
 SQLExec.cpp.s:
 	$(MAKE) -f CMakeFiles/sql4300.dir/build.make CMakeFiles/sql4300.dir/SQLExec.cpp.s
 .PHONY : SQLExec.cpp.s
+
+btree.o: btree.cpp.o
+
+.PHONY : btree.o
+
+# target to build an object file
+btree.cpp.o:
+	$(MAKE) -f CMakeFiles/sql4300.dir/build.make CMakeFiles/sql4300.dir/btree.cpp.o
+.PHONY : btree.cpp.o
+
+btree.i: btree.cpp.i
+
+.PHONY : btree.i
+
+# target to preprocess a source file
+btree.cpp.i:
+	$(MAKE) -f CMakeFiles/sql4300.dir/build.make CMakeFiles/sql4300.dir/btree.cpp.i
+.PHONY : btree.cpp.i
+
+btree.s: btree.cpp.s
+
+.PHONY : btree.s
+
+# target to generate assembly for a file
+btree.cpp.s:
+	$(MAKE) -f CMakeFiles/sql4300.dir/build.make CMakeFiles/sql4300.dir/btree.cpp.s
+.PHONY : btree.cpp.s
 
 heap_storage.o: heap_storage.cpp.o
 
@@ -321,6 +375,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... sql4300"
+	@echo "... BTreeNode.o"
+	@echo "... BTreeNode.i"
+	@echo "... BTreeNode.s"
 	@echo "... EvalPlan.o"
 	@echo "... EvalPlan.i"
 	@echo "... EvalPlan.s"
@@ -330,6 +387,9 @@ help:
 	@echo "... SQLExec.o"
 	@echo "... SQLExec.i"
 	@echo "... SQLExec.s"
+	@echo "... btree.o"
+	@echo "... btree.i"
+	@echo "... btree.s"
 	@echo "... heap_storage.o"
 	@echo "... heap_storage.i"
 	@echo "... heap_storage.s"
