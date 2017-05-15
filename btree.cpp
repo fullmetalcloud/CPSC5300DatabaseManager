@@ -433,7 +433,6 @@ ValueDict* BTreeTable::project(Handle handle) {
         (*result)[col] = vals[i];
         ++i;
     }
-    delete foundVals;
     return result;
 }
 
