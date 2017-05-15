@@ -6,8 +6,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/sql4300.dir/schema_tables.cpp.o"
   "CMakeFiles/sql4300.dir/storage_engine.cpp.o"
   "CMakeFiles/sql4300.dir/EvalPlan.cpp.o"
-  "CMakeFiles/sql4300.dir/BTreeNode.cpp.o"
   "CMakeFiles/sql4300.dir/btree.cpp.o"
+  "CMakeFiles/sql4300.dir/BTreeNode.cpp.o"
   "sql4300.pdb"
   "sql4300"
 )

@@ -7,8 +7,27 @@ CMakeFiles/sql4300.dir/BTreeNode.cpp.o
  /Users/stormregalia/Desktop/DBProject/Project/heap_storage.h
  /Users/stormregalia/Desktop/DBProject/Project/storage_engine.h
 CMakeFiles/sql4300.dir/EvalPlan.cpp.o
+ ../sql-parser/src/SQLParser.h
+ ../sql-parser/src/SQLParserResult.h
+ ../sql-parser/src/sql/CreateStatement.h
+ ../sql-parser/src/sql/DeleteStatement.h
+ ../sql-parser/src/sql/DropStatement.h
+ ../sql-parser/src/sql/ExecuteStatement.h
+ ../sql-parser/src/sql/Expr.h
+ ../sql-parser/src/sql/ImportStatement.h
+ ../sql-parser/src/sql/InsertStatement.h
+ ../sql-parser/src/sql/PrepareStatement.h
+ ../sql-parser/src/sql/SQLStatement.h
+ ../sql-parser/src/sql/SelectStatement.h
+ ../sql-parser/src/sql/ShowStatement.h
+ ../sql-parser/src/sql/Table.h
+ ../sql-parser/src/sql/UpdateStatement.h
+ ../sql-parser/src/sql/statements.h
  /Users/stormregalia/Desktop/DBProject/Project/EvalPlan.cpp
  /Users/stormregalia/Desktop/DBProject/Project/EvalPlan.h
+ /Users/stormregalia/Desktop/DBProject/Project/SQLExec.h
+ /Users/stormregalia/Desktop/DBProject/Project/heap_storage.h
+ /Users/stormregalia/Desktop/DBProject/Project/schema_tables.h
  /Users/stormregalia/Desktop/DBProject/Project/storage_engine.h
 CMakeFiles/sql4300.dir/ParseTreeToString.cpp.o
  ../sql-parser/src/SQLParser.h
@@ -104,7 +123,6 @@ CMakeFiles/sql4300.dir/sql4300.cpp.o
  ../sql-parser/src/sql/UpdateStatement.h
  ../sql-parser/src/sql/statements.h
  /Users/stormregalia/Desktop/DBProject/Project/BTreeNode.h
- /Users/stormregalia/Desktop/DBProject/Project/EvalPlan.h
  /Users/stormregalia/Desktop/DBProject/Project/ParseTreeToString.h
  /Users/stormregalia/Desktop/DBProject/Project/SQLExec.h
  /Users/stormregalia/Desktop/DBProject/Project/btree.h

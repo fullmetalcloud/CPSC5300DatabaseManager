@@ -96,7 +96,7 @@ public:
 	virtual void close();
 
 	virtual Handle insert(const ValueDict* row);
-	virtual void update(const Handle handle, const ValueDict* new_values);
+	virtual Handle update(const Handle handle, const ValueDict* new_values);
 	virtual void del(const Handle handle);
 
 	virtual Handles* select();

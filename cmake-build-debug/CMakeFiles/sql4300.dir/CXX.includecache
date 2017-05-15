@@ -121,10 +121,14 @@ storage_engine.h
 /Users/stormregalia/Desktop/DBProject/Project/storage_engine.h
 heap_storage.h
 /Users/stormregalia/Desktop/DBProject/Project/heap_storage.h
+memory.h
+-
 
 /Users/stormregalia/Desktop/DBProject/Project/EvalPlan.cpp
 EvalPlan.h
 /Users/stormregalia/Desktop/DBProject/Project/EvalPlan.h
+SQLExec.h
+/Users/stormregalia/Desktop/DBProject/Project/SQLExec.h
 
 /Users/stormregalia/Desktop/DBProject/Project/EvalPlan.h
 storage_engine.h
@@ -159,8 +163,6 @@ SQLParser.h
 /Users/stormregalia/Desktop/DBProject/Project/SQLParser.h
 schema_tables.h
 /Users/stormregalia/Desktop/DBProject/Project/schema_tables.h
-EvalPlan.h
-/Users/stormregalia/Desktop/DBProject/Project/EvalPlan.h
 
 /Users/stormregalia/Desktop/DBProject/Project/btree.cpp
 btree.h

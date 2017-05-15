@@ -3,6 +3,7 @@
 //
 
 #include "EvalPlan.h"
+#include "SQLExec.h" // for SQLExec::indices
 
 
 class Dummy : public DbRelation {
@@ -15,7 +16,7 @@ public:
     virtual void open() {};
     virtual void close() {};
     virtual Handle insert(const ValueDict* row) {return Handle();}
-    virtual void update(const Handle handle, const ValueDict* new_values) {}
+    virtual Handle update(const Handle handle, const ValueDict* new_values) { return Handle(); }
     virtual void del(const Handle handle) {}
     virtual Handles* select() {return nullptr;};
     virtual Handles* select(const ValueDict* where) {return nullptr;}
@@ -25,19 +26,53 @@ public:
 };
 
 EvalPlan::EvalPlan(PlanType type, EvalPlan *relation)
-        : type(type), relation(relation), projection(nullptr), select_conjunction(nullptr), table(Dummy::one()) {
+        : type(type),
+          relation(relation),
+          projection(nullptr),
+          select_conjunction(nullptr),
+          table(Dummy::one()),
+          key(nullptr),
+          index(nullptr) {
 }
 
 EvalPlan::EvalPlan(ColumnNames *projection, EvalPlan *relation)
-        : type(Project), relation(relation), projection(projection), select_conjunction(nullptr), table(Dummy::one()) {
+        : type(Project),
+          relation(relation),
+          projection(projection),
+          select_conjunction(nullptr),
+          table(Dummy::one()),
+          key(nullptr),
+          index(nullptr) {
 }
 
 EvalPlan::EvalPlan(ValueDict* conjunction, EvalPlan *relation)
-        : type(Select), relation(relation), projection(nullptr), select_conjunction(conjunction), table(Dummy::one()) {
+        : type(Select),
+          relation(relation),
+          projection(nullptr),
+          select_conjunction(conjunction),
+          table(Dummy::one()),
+          key(nullptr),
+          index(nullptr) {
 }
 
 EvalPlan::EvalPlan(DbRelation &table)
-        : type(TableScan), relation(nullptr), projection(nullptr), select_conjunction(nullptr), table(table) {
+        : type(TableScan),
+          relation(nullptr),
+          projection(nullptr),
+          select_conjunction(nullptr),
+          table(table),
+          key(nullptr),
+          index(nullptr) {
+}
+
+EvalPlan::EvalPlan(ValueDict *key, DbIndex *index)
+        : type(IndexLookup),
+          relation(nullptr),
+          projection(nullptr),
+          select_conjunction(nullptr),
+          table(Dummy::one()),
+          key(key),
+          index(index) {
 }
 
 EvalPlan::EvalPlan(const EvalPlan *other)
@@ -46,24 +81,68 @@ EvalPlan::EvalPlan(const EvalPlan *other)
         relation = new EvalPlan(other->relation);
     else
         relation = nullptr;
+
     if (other->projection != nullptr)
         projection = new ColumnNames(*other->projection);
     else
         projection = nullptr;
+
     if (other->select_conjunction != nullptr)
         select_conjunction = new ValueDict(*other->select_conjunction);
     else
         select_conjunction = nullptr;
+
+    if (other->key != nullptr)
+        key = new ValueDict(*other->key);
+    else
+        key = nullptr;
+
+    if (other->index != nullptr)
+        index = other->index;
+    else
+        index = nullptr;
 }
 
 EvalPlan::~EvalPlan() {
     delete relation;
     delete projection;
     delete select_conjunction;
+    delete key;
 }
 
 
 EvalPlan *EvalPlan::optimize() {
+    switch(this->type) {
+        case ProjectAll:
+            return new EvalPlan(EvalPlan::ProjectAll, this->relation->optimize());
+
+        case Project:
+            return new EvalPlan(new ColumnNames(*this->projection), this->relation->optimize());
+
+        case Select:
+            // look for index lookup opportunity
+            if (this->relation->type == TableScan) {
+                for (auto const& index_name: SQLExec::indices->get_index_names(this->relation->table.get_table_name())) {
+                    DbIndex &index = SQLExec::indices->get_index(this->relation->table, index_name);
+                    // if this index starts with a value that's in our where clause, then figure it's best to use index
+                    if (this->select_conjunction->find(index.get_key_columns()[0]) != this->select_conjunction->end()) {
+                        ValueDict *key = new ValueDict();
+                        for (Identifier const& cn: index.get_key_columns()) {
+                            if (this->select_conjunction->find(cn) != this->select_conjunction->end())
+                                (*key)[cn] = (*this->select_conjunction)[cn];
+                            return new EvalPlan(key, &index);
+                            // FIXME: not quite done since we have to account for any non-key values in the select_conjunction
+                        }
+                    }
+                }
+            }
+            return new EvalPlan(new ValueDict(*this->select_conjunction), this->relation->optimize());
+
+        case TableScan:
+        case IndexLookup:
+        default:
+            break;
+    }
     return new EvalPlan(this);  // For now, we don't know how to do anything better
 }
 
@@ -89,6 +168,8 @@ EvalPipeline EvalPlan::pipeline() {
         return EvalPipeline(&this->table, this->table.select());
     if (this->type == Select && this->relation->type == TableScan)
         return EvalPipeline(&this->relation->table, this->relation->table.select(this->select_conjunction));
+    if (this->type == IndexLookup)
+        return EvalPipeline(&this->index->get_relation(), this->index->lookup(this->key));
 
     // recursive case
     if (this->type == Select) {

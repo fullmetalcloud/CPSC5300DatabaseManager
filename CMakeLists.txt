@@ -17,10 +17,10 @@ set(SOURCE_FILES
         storage_engine.cpp
         EvalPlan.cpp
         EvalPlan.h
-        BTreeNode.h
-        BTreeNode.cpp
+        btree.cpp
         btree.h
-        btree.cpp)
+        BTreeNode.cpp
+        BTreeNode.h)
 
 include_directories(/usr/local/db6/include)
 include_directories(${PROJECT_SOURCE_DIR}/sql-parser/src)
@@ -30,5 +30,5 @@ add_executable(sql4300 ${SOURCE_FILES})
 find_library(BERKELEY_DB db_cxx HINTS "/usr/local/db6/lib")
 target_link_libraries(sql4300 ${BERKELEY_DB})
 
-find_library(SQL_PARSER SQLParser HINTS "${PROJECT_SOURCE_DIR}/sql-parser")
+find_library(SQL_PARSER SQLParser HINTS "~/sql-parser")
 target_link_libraries(sql4300 ${SQL_PARSER})

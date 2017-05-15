@@ -15,6 +15,7 @@ public:
         ProjectAll,
         Project,
         Select,
+        IndexLookup,
         TableScan
     };
 
@@ -22,6 +23,7 @@ public:
     EvalPlan(ColumnNames *projection, EvalPlan *relation); // use for Project
     EvalPlan(ValueDict* conjunction, EvalPlan *relation);  // use for Select
     EvalPlan(DbRelation &table);  // use for TableScan
+    EvalPlan(ValueDict *key, DbIndex *index); // use for IndexLookup
     EvalPlan(const EvalPlan *other);  // use for copying
     virtual ~EvalPlan();
 
@@ -35,8 +37,10 @@ public:
 protected:
 
     PlanType type;
-    EvalPlan *relation;  // for everything except TableScan
+    EvalPlan *relation;  // for everything except TableScan and IndexLookup
     ColumnNames *projection;  // for Project
     ValueDict *select_conjunction;  // for Select
     DbRelation &table;  // for TableScan
+    ValueDict *key; // for IndexLookup
+    DbIndex *index; // for IndexLookup
 };
